@@ -2,7 +2,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 
 export let darkTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
   },
   typography: {
     fontSize: 16,
@@ -34,6 +34,22 @@ darkTheme = responsiveFontSizes(darkTheme, {
   factor: 2,
 });
 
+darkTheme = createTheme(darkTheme, {
+  palette: {
+    primary: darkTheme.palette.augmentColor({
+      color: {
+        main: "#228B22",
+      },
+      name: "primary",
+    }),
+    white: darkTheme.palette.augmentColor({
+      color: {
+        main: "#FFFFFF",
+      },
+      name: "white",
+    }),
+  },
+});
 // darkTheme.typography.h1 = {
 //   [darkTheme.breakpoints.up("laptop")]: {
 //     fontSize: "36px",

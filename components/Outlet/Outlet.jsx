@@ -3,25 +3,23 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getToken } from "@/service/storage";
 import { refreshInfo, getAppStateOperation } from "@/redux/operations";
-import { useStudent } from "@/redux/selectors";
+import { useUser } from "@/redux/selectors";
 import { Box, CircularProgress } from "@mui/material";
 import { useLoading } from "@/redux/selectors";
 
 export const Outlet = ({ children }) => {
   const dispatch = useDispatch();
-  const student = useStudent();
+  const user = useUser();
   const loading = useLoading();
 
   useEffect(() => {
     const token = getToken();
-    if (!token || student) {
+    if (!token || user) {
       return;
     }
     dispatch(getAppStateOperation());
-    console.log("here");
-
     dispatch(refreshInfo(token));
-  }, [student, dispatch]);
+  }, [user, dispatch]);
   return (
     <Box position={"relative"}>
       <Header />

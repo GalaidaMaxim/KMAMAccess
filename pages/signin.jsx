@@ -3,25 +3,28 @@ import { useState, useEffect } from "react";
 import { signInOperation, getAppStateOperation } from "../redux/operations";
 import { useDispatch } from "react-redux";
 import { Outlet } from "@/components/Outlet/Outlet";
-import { useStudent } from "@/redux/selectors";
+import { useUser } from "@/redux/selectors";
 import { useRouter } from "next/router";
 
 export default function SignInPage() {
   const [ticketCode, setTicketCode] = useState("");
-  const student = useStudent();
+  const [password, setPassword] = useState("");
+
+  const user = useUser();
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (student) {
-      router.push("/plan");
+    if (user) {
+      router.push("/");
     }
-  }, [student, router]);
+  }, [user, router]);
 
   const run = async (event) => {
     event.preventDefault();
     dispatch(signInOperation(ticketCode));
     dispatch(getAppStateOperation());
   };
+
   return (
     <Outlet>
       <Box paddingTop={10} minHeight={"60vh"}>
@@ -45,16 +48,25 @@ export default function SignInPage() {
           onSubmit={run}
         >
           <Typography textAlign={"center"} variant="h3">
-            Увійти до заліковки
+            Увійти до журналу
           </Typography>
 
           <TextField
             onChange={(event) => setTicketCode(event.target.value)}
             value={ticketCode}
-            label={"Номер телефону"}
+            label={"Логін"}
             variant="standard"
             fullWidth
           />
+          <TextField
+            onChange={(event) => setPassword(event.target.value)}
+            value={password}
+            type="password"
+            label={"passwod"}
+            variant="standard"
+            fullWidth
+          />
+
           <Button type="submit" variant="contained">
             Увійти
           </Button>

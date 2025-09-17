@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { studentSlice, loadingSlice, appStateSlice } from "./slises";
+import { userSlice, loadingSlice } from "./slises";
 
 export const store = configureStore({
   reducer: {
-    student: studentSlice.reducer,
+    user: userSlice.reducer,
     loading: loadingSlice.reducer,
-    appState: appStateSlice.reducer,
   },
 });

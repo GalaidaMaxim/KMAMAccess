@@ -7,15 +7,12 @@ import {
   useTheme,
 } from "@mui/material";
 import styled from "@emotion/styled";
-import { useToken } from "../../redux/selectors";
+import { useToken, useUser } from "../../redux/selectors";
 import { ContainerCustom } from "../Container/Container";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { logoutOperation } from "../../redux/operations";
-import { MobileNvaigation } from "./MobileNavigation";
 import Link from "next/link";
-import { useAppSatate } from "../../redux/selectors";
-import { useStudent } from "../../redux/selectors";
 
 const StyledHeader = styled(AppBar)`
   height: 4rem;
@@ -41,14 +38,11 @@ export const Header = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const isPhone = useMediaQuery(theme.breakpoints.down("tablet"));
-  const appState = useAppSatate();
-  const student = useStudent();
+  const user = useUser();
 
   const logout = () => {
     dispatch(logoutOperation(token));
   };
-
-  console.log(student);
 
   return (
     <StyledHeader position="static">
@@ -62,49 +56,28 @@ export const Header = () => {
         }}
       >
         <LinkStyled href={"/"}>
-          <Typography color={"text.primary"} variant={"h1"}>
-            Web Заліковка
+          <Typography color={"white.main"} variant={"h1"}>
+            Web журнал
           </Typography>
         </LinkStyled>
         {!isPhone && (
           <>
-            {token && (
-              <Navigation component={"nav"}>
-                <LinkStyled href={"/plan"}>
-                  <Typography color={"text.primary"} variant={"body1"}>
-                    Індивідуальний план
-                  </Typography>
-                </LinkStyled>
-                <LinkStyled href={"/marks"}>
-                  <Typography color={"text.primary"} variant={"body1"}>
-                    Оцінки
-                  </Typography>
-                </LinkStyled>
-                {appState?.openForSelectSubject && student?.course === 1 && (
-                  <LinkStyled href={"/selectable"}>
-                    <Typography color={"text.primary"} variant={"body1"}>
-                      Вибіркові предмети
-                    </Typography>
-                  </LinkStyled>
-                )}
-              </Navigation>
-            )}
+            {token && <Navigation component={"nav"}></Navigation>}
             {!token ? (
               <Button onClick={() => router.push("/signin")}>
-                <Typography color={"text.primary"} variant={"body1"}>
+                <Typography color={"white.main"} variant={"body1"}>
                   Увійти
                 </Typography>
               </Button>
             ) : (
               <Button onClick={logout}>
-                <Typography color={"text.primary"} variant={"body1"}>
+                <Typography color={"white.main"} variant={"body1"}>
                   Вийти
                 </Typography>
               </Button>
             )}
           </>
         )}
-        {isPhone && <MobileNvaigation logout={logout} />}
       </ContainerCustom>
     </StyledHeader>
   );
