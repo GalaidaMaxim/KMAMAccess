@@ -4,7 +4,7 @@ import { connectToDatabase } from "@/mongoose/mongooseConnect";
 export default async function AuthHandler(req, res) {
   try {
     await connectToDatabase();
-    const { ticketCode } = req.body;
+    const { username, password } = req.body;
     const { student, educationPlan } = await signUpStudent(ticketCode);
 
     const { token, name, sername, secondName, subjects, course, level } =

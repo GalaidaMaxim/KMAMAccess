@@ -52,19 +52,39 @@ const StudentSchema = new Schema({
   },
   startYear: {
     type: Number,
-    default: 2024,
-  },
-  ticketCode: {
-    type: String,
-  },
-  token: {
-    type: String,
+    default: 2025,
   },
   foreigner: {
     type: Boolean,
     default: false,
   },
+  ticketCode: {
+    type: String,
+  },
+  contract: {
+    type: Boolean,
+    default: false,
+  },
+  token: {
+    type: String,
+  },
   subjects: [SubjectSchema],
+  remoteType: {
+    type: String,
+    default: "ofline",
+    enum: ["ofline", "online"],
+  },
+  notes: [String],
+  group: {
+    type: String,
+    default: "А",
+    enum: ["А", "Б", "В", "Г", "Д"],
+  },
+  birthday: { type: Number },
+  instrument: { type: String },
+  phoneNumber: {
+    type: String,
+  },
 });
 
 export default models.student || model("student", StudentSchema);
