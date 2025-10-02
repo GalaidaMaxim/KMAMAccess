@@ -21,8 +21,7 @@ export default function SignInPage() {
 
   const run = async (event) => {
     event.preventDefault();
-    dispatch(signInOperation(ticketCode));
-    dispatch(getAppStateOperation());
+    dispatch(signInOperation({ ticketCode, password }));
   };
 
   return (

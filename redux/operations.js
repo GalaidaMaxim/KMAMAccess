@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { signIn, logout, getStudent } from "../service/api";
+import { signIn, logout, getUser } from "../service/api";
 import { getAppState } from "../service/api";
 
 export const signInOperation = createAsyncThunk(
-  "student/signin",
+  "user/signin",
   async (data, { rejectWithValue }) => {
     try {
       const result = await signIn(data);
@@ -19,7 +19,7 @@ export const signInOperation = createAsyncThunk(
 );
 
 export const logoutOperation = createAsyncThunk(
-  "student/logout",
+  "user/logout",
   async (data, { rejectWithValue }) => {
     try {
       const result = await logout(data);
@@ -35,10 +35,10 @@ export const logoutOperation = createAsyncThunk(
 );
 
 export const refreshInfo = createAsyncThunk(
-  "refresh/student",
+  "user/refresh",
   async (data, { rejectWithValue }) => {
     try {
-      const result = await getStudent(data);
+      const result = await getUser(data);
       return result;
     } catch ({ response }) {
       const error = {

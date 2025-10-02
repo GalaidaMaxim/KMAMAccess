@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Head>
-          <title>Web заліковка</title>
+          <title>Web журнал</title>
           <link rel="icon" href="./favicon.ico" sizes="any" />
         </Head>
         <Component {...pageProps} />

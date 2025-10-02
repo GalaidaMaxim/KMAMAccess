@@ -1,25 +1,12 @@
-import signUpStudent from "@/actions/signUpStudent";
+import loginUser from "@/actions/loginUser";
 import { connectToDatabase } from "@/mongoose/mongooseConnect";
 
 export default async function AuthHandler(req, res) {
   try {
     await connectToDatabase();
-    const { username, password } = req.body;
-    const { student, educationPlan } = await signUpStudent(ticketCode);
-
-    const { token, name, sername, secondName, subjects, course, level } =
-      student;
-
-    res.status(200).json({
-      token,
-      name,
-      sername,
-      secondName,
-      subjects,
-      course,
-      level,
-      educationPlan,
-    });
+    const { login, password } = req.body;
+    const { user } = await loginUser(login, password);
+    res.status(200).json(user);
   } catch (err) {
     console.log(err.message);
 

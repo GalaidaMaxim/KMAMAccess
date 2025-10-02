@@ -2,13 +2,13 @@ import axios from "axios";
 
 axios.defaults.baseURL = "/api";
 
-export const signIn = async (userName, password) => {
-  const student = await axios.post("/students/auth", { ticketCode });
-  return student.data;
+export const signIn = async ({ ticketCode, password }) => {
+  const data = await axios.post("/users/auth", { login: ticketCode, password });
+  return data.data;
 };
 
-export const getStudent = async (token) => {
-  const data = await axios.get("/students/", {
+export const getUser = async (token) => {
+  const data = await axios.get("/users/", {
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -18,7 +18,7 @@ export const getStudent = async (token) => {
 
 export const logout = async (token) => {
   const data = await axios.patch(
-    "/students/logout",
+    "/users/logout",
     {},
     {
       headers: {

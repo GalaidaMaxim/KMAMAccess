@@ -1,5 +1,5 @@
 import getStudent from "./getStudent";
-import signUpStudent from "./signUpStudent";
-import logoutStudent from "./signUpStudent";
+import signUpStudent from "./loginUser";
+import logoutStudent from "./loginUser";
 
 export default { getStudent, signUpStudent, logoutStudent };
