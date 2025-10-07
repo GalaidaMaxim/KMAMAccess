@@ -15,7 +15,7 @@ export default function SignInPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (user) {
-      router.push("/");
+      router.push("/main");
     }
   }, [user, router]);
 

@@ -21,7 +21,6 @@ const StyledHeader = styled(AppBar)`
   align-items: center;
 
   justify-content: space-between;
-  margin-bottom: 20px;
 `;
 
 const Navigation = styled(Box)`

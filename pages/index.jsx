@@ -5,7 +5,7 @@ import { Outlet } from "@/components/Outlet/Outlet";
 export default function MainPage() {
   return (
     <Outlet>
-      <ContainerCustom>
+      <ContainerCustom sx={{ marginTop: "20px" }}>
         <Paper>
           <Box
             padding={2}
