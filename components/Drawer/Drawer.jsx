@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, Button, Grid } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/redux/selectors";
 
 const DrawerStyled = styled(Box)`
   border-right: 1px solid black;
@@ -11,6 +12,7 @@ const DrawerStyled = styled(Box)`
 
 export const Drawer = ({ children }) => {
   const router = useRouter();
+  const user = useUser();
   const onNavigate = (path) => {
     return () => {
       router.push(`/main/${path}`);

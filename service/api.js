@@ -29,34 +29,20 @@ export const logout = async (token) => {
   return data.data;
 };
 
-export const getSubjectsByPlan = async (token) => {
-  const data = await axios.get("/subjects/department", {
+export const getStatments = async (token) => {
+  const data = await axios.get("/statments", {
     headers: {
       Authorization: "Bearer " + token,
     },
   });
   return data.data;
 };
-
-export const getEducationPlan = async (id) => {
-  const data = await axios.get("/education-plan", {
-    params: {
-      id,
+export const getStatmentByID = async (token, id) => {
+  const data = await axios.get(`/statments/${id}`, {
+    headers: {
+      Authorization: "Bearer " + token,
     },
   });
-  return data.data;
-};
-
-export const saveSubjects = async (token = "", subjects = []) => {
-  const data = await axios.patch(
-    "/students/subjects",
-    { subjects },
-    {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    }
-  );
   return data.data;
 };
 
