@@ -4,12 +4,22 @@ import { getToken } from "@/service/storage";
 import { useState, useEffect } from "react";
 import { enableLoading, disableLoading } from "@/redux/slises";
 import { useDispatch } from "react-redux";
-import { Box } from "@mui/material";
+import { Box, Table, TableCell, TableRow, TableBody } from "@mui/material";
 import { getStatmentByID } from "@/service/api";
 import { useRouter } from "next/router";
+import { FillStatment } from "@/components/FillStatment/FillStatment";
+
+const InfoCells = ({ name, value }) => {
+  return (
+    <TableRow>
+      <TableCell>{name}</TableCell>
+      <TableCell>{value}</TableCell>
+    </TableRow>
+  );
+};
 
 export default function Statments() {
-  const [statment, setStatment] = useState([]);
+  const [statment, setStatment] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
@@ -22,7 +32,7 @@ export default function Statments() {
 
       try {
         const result = await getStatmentByID(getToken(), router.query.id);
-        console.log(result);
+        setStatment(result);
       } catch (err) {
         console.log(err);
       }
@@ -30,11 +40,38 @@ export default function Statments() {
     })();
   }, [router.isReady]);
 
+  const setStudentMark = () => {};
+
   return (
     <Outlet>
       <Drawer>
         <Box padding={"20px"}>
-          <h2>Відомості</h2>
+          {statment && (
+            <>
+              <h2>{statment.subject.name}</h2>
+              <Box>
+                <Table>
+                  <InfoCells
+                    name="Освітній ступінь"
+                    value={statment.educationPlan.level}
+                  />
+                  <InfoCells name="Курс" value={statment.course} />
+                  <InfoCells
+                    name="профілізація"
+                    value={statment.department.name}
+                  />
+                </Table>
+              </Box>
+              <Box>
+                <h3>Студенти</h3>
+                <FillStatment
+                  semester={statment.semester}
+                  subject={statment.subject}
+                  students={statment.students}
+                />
+              </Box>
+            </>
+          )}
         </Box>
       </Drawer>
     </Outlet>
