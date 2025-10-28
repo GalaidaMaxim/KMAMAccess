@@ -40,7 +40,19 @@ export default function Statments() {
     })();
   }, [router.isReady]);
 
-  const setStudentMark = () => {};
+  const setStudentMark = (studentID, subjectID, semester) => {
+    return (event) => {
+      setStatment((prev) => {
+        const students = [...prev.students];
+        students
+          .find((item) => item._id === studentID)
+          .subjects.find((item) => item._id === subjectID).semesters[
+          semester - 1
+        ].mark = event.target.value;
+        return { ...prev, students };
+      });
+    };
+  };
 
   return (
     <Outlet>
@@ -51,15 +63,17 @@ export default function Statments() {
               <h2>{statment.subject.name}</h2>
               <Box>
                 <Table>
-                  <InfoCells
-                    name="Освітній ступінь"
-                    value={statment.educationPlan.level}
-                  />
-                  <InfoCells name="Курс" value={statment.course} />
-                  <InfoCells
-                    name="профілізація"
-                    value={statment.department.name}
-                  />
+                  <TableBody>
+                    <InfoCells
+                      name="Освітній ступінь"
+                      value={statment.educationPlan.level}
+                    />
+                    <InfoCells name="Курс" value={statment.course} />
+                    <InfoCells
+                      name="профілізація"
+                      value={statment.department.name}
+                    />
+                  </TableBody>
                 </Table>
               </Box>
               <Box>
@@ -68,6 +82,7 @@ export default function Statments() {
                   semester={statment.semester}
                   subject={statment.subject}
                   students={statment.students}
+                  setStudentsMark={setStudentMark}
                 />
               </Box>
             </>

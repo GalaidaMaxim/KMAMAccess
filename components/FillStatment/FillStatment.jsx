@@ -12,7 +12,9 @@ import {
   Select,
   Checkbox,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+
+import { updateStudentPyParams } from "@/service/api";
+import { getToken } from "@/service/storage";
 
 export const FillStatment = ({
   subject,
@@ -20,18 +22,25 @@ export const FillStatment = ({
   students = [],
   setStudentsMark = () => {},
 }) => {
-  const markInputHandle = (index) => {
+  const markInputHandle = (id) => {
     return async (event) => {
       const mark = Number.parseInt(event.target.value);
       if (mark != event.target.value && event.target.value !== "") {
         console.log("not a number");
         return;
       }
+      try {
+        await updateStudentPyParams(
+          getToken(),
+          id,
+          students
+            .find((item) => item._id === id)
+            .subjects.find((item) => item._id === subject._id)
+        );
+      } catch (err) {
+        console.log(err);
+      }
     };
-  };
-
-  const markChageHandle = (index, name) => {
-    return (event) => {};
   };
 
   const markInputHandleUndef = (index, name) => {
@@ -71,13 +80,17 @@ export const FillStatment = ({
               <TableCell>
                 {subject.semesters[semester - 1].assessmentType !== 1 ? (
                   <TextField
-                    onChange={markChageHandle(index, subject._id)}
+                    onChange={setStudentsMark(
+                      student._id,
+                      subject._id,
+                      semester
+                    )}
                     value={
                       student.subjects.find((i) => i._id === subject._id)
                         .semesters[semester - 1].mark || ""
                     }
                     size="small"
-                    onBlur={markInputHandle(index)}
+                    onBlur={markInputHandle(student._id)}
                   />
                 ) : (
                   <Box width={"50px"}>

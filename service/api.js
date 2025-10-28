@@ -50,3 +50,16 @@ export const getAppState = async () => {
   const data = await axios.get("/state");
   return data.data;
 };
+
+export const updateStudentPyParams = async (token, id, params) => {
+  const data = await axios.patch(
+    "/student_subject",
+    { id, subject: params },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return data.data;
+};
