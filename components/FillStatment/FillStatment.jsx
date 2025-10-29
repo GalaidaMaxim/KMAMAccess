@@ -15,13 +15,38 @@ import {
 
 import { updateStudentPyParams } from "@/service/api";
 import { getToken } from "@/service/storage";
+import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { enableLoading, disableLoading } from "@/redux/slises";
 
 export const FillStatment = ({
   subject,
   semester,
   students = [],
   setStudentsMark = () => {},
+  setStudentRedelivery = () => {},
 }) => {
+  const dispatch = useDispatch();
+
+  const saveStudent = async (id) => {
+    dispatch(enableLoading());
+    try {
+      await updateStudentPyParams(
+        getToken(),
+        id,
+        students
+          .find((item) => item._id === id)
+          .subjects.find((item) => item._id === subject._id)
+      );
+      toast("Студент оновлений", { type: "success" });
+    } catch (err) {
+      toast("Помилка", { type: "error" });
+
+      console.log(err);
+    }
+    dispatch(disableLoading());
+  };
+
   const markInputHandle = (id) => {
     return async (event) => {
       const mark = Number.parseInt(event.target.value);
@@ -29,17 +54,7 @@ export const FillStatment = ({
         console.log("not a number");
         return;
       }
-      try {
-        await updateStudentPyParams(
-          getToken(),
-          id,
-          students
-            .find((item) => item._id === id)
-            .subjects.find((item) => item._id === subject._id)
-        );
-      } catch (err) {
-        console.log(err);
-      }
+      await saveStudent(id);
     };
   };
 
@@ -52,19 +67,9 @@ export const FillStatment = ({
     };
   };
 
-  const redeliveryHandle = (_id, index) => {
-    return async (event) => {
-      const obj = JSON.parse(JSON.stringify(students[index]));
-      obj.subjects.find((item) => item._id === _id).semesters[
-        semester - 1
-      ].reDelivery = !obj.subjects.find((item) => item._id === _id).semesters[
-        semester - 1
-      ].reDelivery;
-    };
-  };
-
   return (
     <Box>
+      <ToastContainer autoClose={1000} />
       <Table>
         <TableHead>
           <TableRow>
@@ -116,7 +121,12 @@ export const FillStatment = ({
                     student.subjects.find((i) => i._id === subject._id)
                       .semesters[semester - 1].reDelivery
                   }
-                  onChange={redeliveryHandle(subject._id, index)}
+                  onChange={setStudentRedelivery(
+                    student._id,
+                    subject._id,
+                    semester,
+                    saveStudent
+                  )}
                 />
               </TableCell>
             </TableRow>

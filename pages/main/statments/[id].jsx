@@ -54,6 +54,26 @@ export default function Statments() {
     };
   };
 
+  const setStudentRedelivery = (
+    studentID,
+    subjectID,
+    semester,
+    callback = () => {}
+  ) => {
+    return (event) => {
+      setStatment((prev) => {
+        const students = [...prev.students];
+        students
+          .find((item) => item._id === studentID)
+          .subjects.find((item) => item._id === subjectID).semesters[
+          semester - 1
+        ].reDelivery = event.target.checked;
+        return { ...prev, students };
+      });
+      callback(studentID);
+    };
+  };
+
   return (
     <Outlet>
       <Drawer>
@@ -83,6 +103,7 @@ export default function Statments() {
                   subject={statment.subject}
                   students={statment.students}
                   setStudentsMark={setStudentMark}
+                  setStudentRedelivery={setStudentRedelivery}
                 />
               </Box>
             </>
