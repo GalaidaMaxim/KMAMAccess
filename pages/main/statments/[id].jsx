@@ -69,7 +69,7 @@ export default function Statments() {
       await patchStatment(token, statment._id, { complited: target.checked });
       setStatment((prev) => {
         const obj = { ...prev };
-        obj.complited = target.checked;
+        obj.complited = !obj.complited;
         return obj;
       });
     } catch (err) {
@@ -131,7 +131,7 @@ export default function Statments() {
                 />
                 <Box marginTop={2}>
                   <Typography>Відомість заповнена</Typography>
-                  <Switch onChange={onComplite} value={statment.complited} />
+                  <Switch onChange={onComplite} checked={statment.complited} />
                 </Box>
               </Box>
             </>
