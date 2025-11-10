@@ -31,7 +31,26 @@ export default function MainPage() {
   }, []);
   return (
     <Outlet closed={true}>
-      <Drawer>qwewqe</Drawer>
+      <Drawer>
+        {user && (
+          <Box padding={2}>
+            <Typography variant="h1">{`${user?.sername} ${user?.name} ${user?.secondName}`}</Typography>
+            <Box marginTop={2}>
+              <Typography variant="h3">{`Відомості`}</Typography>
+              <Box display={"flex"} gap={2} alignItems={"center"} marginTop={2}>
+                <Typography variant="body2">{`Створені`}</Typography>
+                <Typography variant="body1">{stat?.statmentsCount}</Typography>
+              </Box>
+              <Box display={"flex"} gap={2} alignItems={"center"} marginTop={1}>
+                <Typography variant="body2">{`Незаповнені`}</Typography>
+                <Typography variant="body1">
+                  {stat?.uncomplitedStatments}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        )}
+      </Drawer>
     </Outlet>
   );
 }
