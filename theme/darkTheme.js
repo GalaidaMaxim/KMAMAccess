@@ -19,6 +19,10 @@ export let darkTheme = createTheme({
       fontSize: "24px",
       fontWeight: 600,
     },
+    body2: {
+      fontSize: "16px",
+      fontWeight: 600,
+    },
   },
   breakpoints: {
     values: {

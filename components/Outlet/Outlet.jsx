@@ -6,11 +6,14 @@ import { refreshInfo, getAppStateOperation } from "@/redux/operations";
 import { useUser } from "@/redux/selectors";
 import { Box, CircularProgress } from "@mui/material";
 import { useLoading } from "@/redux/selectors";
+import { Footer } from "../Footer/Footer";
+import { useRouter } from "next/router";
 
-export const Outlet = ({ children }) => {
+export const Outlet = ({ closed = false, children }) => {
   const dispatch = useDispatch();
   const user = useUser();
   const loading = useLoading();
+  const router = useRouter();
 
   useEffect(() => {
     const token = getToken();
@@ -20,10 +23,27 @@ export const Outlet = ({ children }) => {
     dispatch(getAppStateOperation());
     dispatch(refreshInfo(token));
   }, [user, dispatch]);
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token && !user && closed) {
+      router.replace("/");
+    }
+    if (token && user && !closed) {
+      router.replace("/main");
+    }
+  }, [user]);
+
   return (
-    <Box position={"relative"}>
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      minHeight="100vh"
+      position={"relative"}
+    >
       <Header />
-      {children}
+      <Box flexGrow={1}>{children}</Box>
+      <Footer />
       {loading && (
         <Box
           zIndex={3000}

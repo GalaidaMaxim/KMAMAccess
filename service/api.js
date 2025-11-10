@@ -29,6 +29,15 @@ export const logout = async (token) => {
   return data.data;
 };
 
+export const getUserStatistic = async (token) => {
+  const data = await axios.get("/users/getStatistick", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  return data.data;
+};
+
 export const getStatments = async (token) => {
   const data = await axios.get("/statments", {
     headers: {
@@ -37,6 +46,16 @@ export const getStatments = async (token) => {
   });
   return data.data;
 };
+
+export const patchStatment = async (token, id, params) => {
+  const data = await axios.patch(`/statments/${id}`, params, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  return data.data;
+};
+
 export const getStatmentByID = async (token, id) => {
   const data = await axios.get(`/statments/${id}`, {
     headers: {

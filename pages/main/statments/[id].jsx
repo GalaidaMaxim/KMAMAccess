@@ -4,8 +4,16 @@ import { getToken } from "@/service/storage";
 import { useState, useEffect } from "react";
 import { enableLoading, disableLoading } from "@/redux/slises";
 import { useDispatch } from "react-redux";
-import { Box, Table, TableCell, TableRow, TableBody } from "@mui/material";
-import { getStatmentByID } from "@/service/api";
+import {
+  Box,
+  Table,
+  TableCell,
+  TableRow,
+  TableBody,
+  Switch,
+  Typography,
+} from "@mui/material";
+import { getStatmentByID, patchStatment } from "@/service/api";
 import { useRouter } from "next/router";
 import { FillStatment } from "@/components/FillStatment/FillStatment";
 
@@ -54,6 +62,22 @@ export default function Statments() {
     };
   };
 
+  const onComplite = async ({ target }) => {
+    dispatch(enableLoading());
+    const token = getToken();
+    try {
+      await patchStatment(token, statment._id, { complited: target.checked });
+      setStatment((prev) => {
+        const obj = { ...prev };
+        obj.complited = target.checked;
+        return obj;
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch(disableLoading());
+  };
+
   const setStudentRedelivery = (
     studentID,
     subjectID,
@@ -75,7 +99,7 @@ export default function Statments() {
   };
 
   return (
-    <Outlet>
+    <Outlet closed={true}>
       <Drawer>
         <Box padding={"20px"}>
           {statment && (
@@ -105,6 +129,10 @@ export default function Statments() {
                   setStudentsMark={setStudentMark}
                   setStudentRedelivery={setStudentRedelivery}
                 />
+                <Box marginTop={2}>
+                  <Typography>Відомість заповнена</Typography>
+                  <Switch onChange={onComplite} value={statment.complited} />
+                </Box>
               </Box>
             </>
           )}

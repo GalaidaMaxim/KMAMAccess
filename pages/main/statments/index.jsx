@@ -27,7 +27,7 @@ export default function Statments() {
   }, []);
 
   return (
-    <Outlet>
+    <Outlet closed={true}>
       <Drawer>
         <Box padding={"20px"}>
           <h2>Відомості</h2>

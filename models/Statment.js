@@ -65,6 +65,10 @@ const StatmentSchema = new Schema({
   foreigner: {
     type: Boolean,
   },
+  complited: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default models.statment || model("statment", StatmentSchema);
