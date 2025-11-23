@@ -46,7 +46,7 @@ export const Footer = () => {
         <Link style={{ textDecoration: "none" }} href="tel:+380993282760">
           <Typography color="white.main">+380993282760</Typography>
         </Link>
-        <StyledLink href="">
+        <StyledLink href="https://t.me/MaksymKucheriaviy">
           <TelegramIcon fontSize="medium" color="white" />
         </StyledLink>
         <StyledLink href="">
