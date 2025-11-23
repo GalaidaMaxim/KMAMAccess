@@ -36,7 +36,6 @@ export default function Statments() {
     }
     (async () => {
       dispatch(enableLoading());
-      console.log(router.query);
 
       try {
         const result = await getStatmentByID(getToken(), router.query.id);
@@ -46,7 +45,7 @@ export default function Statments() {
       }
       dispatch(disableLoading());
     })();
-  }, [router.isReady]);
+  }, [router.isReady, router.query, dispatch]);
 
   const setStudentMark = (
     studentID,

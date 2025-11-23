@@ -24,7 +24,7 @@ export default function Statments() {
       }
       dispatch(disableLoading());
     })();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Outlet closed={true}>

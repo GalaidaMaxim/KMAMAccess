@@ -28,7 +28,7 @@ export default function MainPage() {
       }
       dispatch(disableLoading());
     })();
-  }, []);
+  }, [dispatch]);
   return (
     <Outlet closed={true}>
       <Drawer>

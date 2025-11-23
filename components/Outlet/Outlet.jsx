@@ -35,7 +35,7 @@ export const Outlet = ({ closed = false, children }) => {
     if (token && user && !closed) {
       router.replace("/main");
     }
-  }, [user]);
+  }, [user, closed, router]);
 
   return (
     <Box
@@ -59,7 +59,7 @@ export const Outlet = ({ closed = false, children }) => {
           <Typography sx={{ textAlign: "center" }} variant="h1">
             Увага пристрої з розміром екрану меньше 768 пікселів не
             підтримуються. Спробуйте використовувати для роботи персональний
-            комп'ютер
+            комп{`'`}ютер
           </Typography>
         </Box>
       )}
