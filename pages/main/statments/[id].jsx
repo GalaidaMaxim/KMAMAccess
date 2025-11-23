@@ -48,7 +48,12 @@ export default function Statments() {
     })();
   }, [router.isReady]);
 
-  const setStudentMark = (studentID, subjectID, semester) => {
+  const setStudentMark = (
+    studentID,
+    subjectID,
+    semester,
+    callback = () => {}
+  ) => {
     return (event) => {
       setStatment((prev) => {
         const students = [...prev.students];
@@ -59,6 +64,7 @@ export default function Statments() {
         ].mark = event.target.value;
         return { ...prev, students };
       });
+      callback(studentID);
     };
   };
 

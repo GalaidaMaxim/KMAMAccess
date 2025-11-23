@@ -58,15 +58,6 @@ export const FillStatment = ({
     };
   };
 
-  const markInputHandleUndef = (index, name) => {
-    return async (event) => {
-      students[index].subjects.find((item) => item.name === name).semesters[
-        semester - 1
-      ].mark = event.target.value;
-      console.log(event.target.value);
-    };
-  };
-
   return (
     <Box>
       <ToastContainer autoClose={1000} />
@@ -105,7 +96,12 @@ export const FillStatment = ({
                           student.subjects.find((i) => i.name === subject.name)
                             .semesters[semester - 1].mark || ""
                         }
-                        onChange={markInputHandleUndef(index, subject.name)}
+                        onChange={setStudentsMark(
+                          student._id,
+                          subject._id,
+                          semester,
+                          saveStudent
+                        )}
                       >
                         <MenuItem value={undefined}>...</MenuItem>
                         <MenuItem value={"Зараховано"}>Зараховано</MenuItem>
