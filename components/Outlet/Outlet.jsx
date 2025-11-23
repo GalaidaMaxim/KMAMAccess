@@ -4,16 +4,19 @@ import { useDispatch } from "react-redux";
 import { getToken } from "@/service/storage";
 import { refreshInfo, getAppStateOperation } from "@/redux/operations";
 import { useUser } from "@/redux/selectors";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useLoading } from "@/redux/selectors";
 import { Footer } from "../Footer/Footer";
 import { useRouter } from "next/router";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 export const Outlet = ({ closed = false, children }) => {
   const dispatch = useDispatch();
   const user = useUser();
   const loading = useLoading();
   const router = useRouter();
+  const windowSize = useWindowSize();
+  console.log(windowSize.width);
 
   useEffect(() => {
     const token = getToken();
@@ -41,6 +44,25 @@ export const Outlet = ({ closed = false, children }) => {
       minHeight="100vh"
       position={"relative"}
     >
+      {windowSize.width < 768 && (
+        <Box
+          position="absolute"
+          width={"100vw"}
+          height={"100vh"}
+          sx={{ backdropFilter: "blur(10px)" }}
+          zIndex={2000}
+          display={"flex"}
+          flexDirection={"row"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Typography sx={{ textAlign: "center" }} variant="h1">
+            Увага пристрої з розміром екрану меньше 768 пікселів не
+            підтримуються. Спробуйте використовувати для роботи персональний
+            комп'ютер
+          </Typography>
+        </Box>
+      )}
       <Header />
       <Box flexGrow={1}>{children}</Box>
       <Footer />
