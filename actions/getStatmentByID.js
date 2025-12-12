@@ -22,6 +22,7 @@ export default async (id) => {
       educationPlan: statments.educationPlan._id,
       course: statments.course,
       status: "навчається",
+      "subjects._id": statments.subject._id,
     }).sort({ sername: 1 });
 
     return { ...statments._doc, students };

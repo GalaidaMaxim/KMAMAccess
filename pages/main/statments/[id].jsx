@@ -39,6 +39,8 @@ export default function Statments() {
 
       try {
         const result = await getStatmentByID(getToken(), router.query.id);
+        console.log(result);
+
         setStatment(result);
       } catch (err) {
         console.log(err);
