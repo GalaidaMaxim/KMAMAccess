@@ -21,6 +21,7 @@ export default async (id) => {
       department: statments.department._id,
       educationPlan: statments.educationPlan._id,
       course: statments.course,
+      foreigner: statments.foreigner,
       status: "навчається",
       "subjects._id": statments.subject._id,
     }).sort({ sername: 1 });
