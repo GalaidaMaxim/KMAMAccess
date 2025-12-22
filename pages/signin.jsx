@@ -60,7 +60,6 @@ export default function SignInPage() {
           <TextField
             onChange={(event) => setPassword(event.target.value)}
             value={password}
-            type="password"
             label={"passwod"}
             variant="standard"
             fullWidth
