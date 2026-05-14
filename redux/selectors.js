@@ -15,3 +15,11 @@ export const useUser = () => {
 export const useLoading = () => {
   return useSelector((state) => state.user.loading || state.loading.value);
 };
+
+export const useCource = () => {
+  return useSelector((state) => state.course.value);
+};
+
+export const useSorting = () => {
+  return useSelector((state) => state.sorting.value);
+};

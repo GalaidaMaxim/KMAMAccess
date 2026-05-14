@@ -16,7 +16,6 @@ export const Outlet = ({ closed = false, children }) => {
   const loading = useLoading();
   const router = useRouter();
   const windowSize = useWindowSize();
-  console.log(windowSize.width);
 
   useEffect(() => {
     const token = getToken();

@@ -31,7 +31,10 @@ export const StatmentsList = ({ list = [] }) => {
       </TableHead>
       <TableBody>
         {list.map((item) => (
-          <TableRow key={item._id}>
+          <TableRow
+            sx={{ backgroundColor: item.complited ? "green" : "white" }}
+            key={item._id}
+          >
             <TableCell>{item.code}</TableCell>
             <TableCell>{item.subject.name}</TableCell>
             <TableCell>{item.educationPlan.level}</TableCell>
@@ -39,7 +42,9 @@ export const StatmentsList = ({ list = [] }) => {
             <TableCell>{item.course}</TableCell>
             <TableCell>
               <IconButton onClick={onEdit(item._id)}>
-                <AddCircleOutlineOutlinedIcon color="primary" />
+                <AddCircleOutlineOutlinedIcon
+                  color={!item.complited ? "primary" : "white"}
+                />
               </IconButton>
             </TableCell>
           </TableRow>
