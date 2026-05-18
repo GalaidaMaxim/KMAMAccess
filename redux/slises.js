@@ -105,14 +105,16 @@ export const sorting = createSlice({
   name: "sorting",
   initialState: {
     value: {
-      name: false,
-      deparment: false,
-      course: true,
+      field: "name",
+      type: "asc",
     },
   },
   reducers: {
-    setSortingParametr(state, { payload }) {
-      state.value = { ...payload };
+    setSortingField: (state, { payload }) => {
+      state.value.field = payload;
+    },
+    changeSortingDirection: (state) => {
+      state.value.type = state.value.type === "asc" ? "desc" : "asc";
     },
   },
 });
@@ -120,4 +122,4 @@ export const sorting = createSlice({
 export const { setToken, clearUser } = userSlice.actions;
 export const { enableLoading, disableLoading } = loadingSlice.actions;
 export const { setCourse } = courseSlice.actions;
-export const { setSortingParametr } = sorting.actions;
+export const { setSortingField, changeSortingDirection } = sorting.actions;
