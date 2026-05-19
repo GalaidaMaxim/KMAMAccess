@@ -7,9 +7,16 @@ import { enableLoading, disableLoading } from "@/redux/slises";
 import { useDispatch } from "react-redux";
 import { StatmentsList } from "@/components/StatmentsList/StatmentsList";
 import { Box } from "@mui/material";
+import { CourseSelector } from "@/components/CourseSelector/CourseSelector";
+import { LevelSelector } from "@/components/LevelSelector/LevelSelector";
+import { useCource, useSorting } from "@/redux/selectors";
+import { useLevel } from "@/redux/selectors";
+
 export default function Statments() {
   const [statments, setStatments] = useState([]);
   const dispatch = useDispatch();
+  const course = useCource();
+  const level = useLevel();
   useEffect(() => {
     (async () => {
       dispatch(enableLoading());
@@ -26,12 +33,25 @@ export default function Statments() {
     })();
   }, [dispatch]);
 
+  let filteredStatments = statments;
+
+  if (course) {
+    filteredStatments = statments.filter((item) => item.course === course);
+  }
+  if (level && level !== "All") {
+    filteredStatments = statments.filter((item) => item.level === level);
+  }
+
   return (
     <Outlet closed={true}>
       <Drawer>
         <Box padding={"20px"}>
           <h2>Відомості</h2>
-          <StatmentsList list={statments} />
+          <Box display={"flex"} gap={5}>
+            <CourseSelector enableAll />
+            <LevelSelector />
+          </Box>
+          <StatmentsList list={filteredStatments} />
         </Box>
       </Drawer>
     </Outlet>

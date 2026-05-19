@@ -89,5 +89,52 @@ export const loadingSlice = createSlice({
   },
 });
 
+export const courseSlice = createSlice({
+  name: "course",
+  initialState: {
+    value: 0,
+  },
+  reducers: {
+    setCourse: (state, { payload }) => {
+      state.value = payload;
+    },
+  },
+});
+
+export const sorting = createSlice({
+  name: "sorting",
+  initialState: {
+    value: {
+      field: "name",
+      type: "asc",
+    },
+  },
+  reducers: {
+    setSortingField: (state, { payload }) => {
+      state.value.field = payload;
+    },
+    changeSortingDirection: (state) => {
+      state.value.type = state.value.type === "asc" ? "desc" : "asc";
+    },
+  },
+});
+
+export const level = createSlice({
+  name: "level",
+  initialState: {
+    value: "All",
+  },
+  reducers: {
+    setLevel: (state, { payload }) => {
+      console.log(payload);
+
+      state.value = payload;
+    },
+  },
+});
+
 export const { setToken, clearUser } = userSlice.actions;
 export const { enableLoading, disableLoading } = loadingSlice.actions;
+export const { setCourse } = courseSlice.actions;
+export const { setSortingField, changeSortingDirection } = sorting.actions;
+export const { setLevel } = level.actions;
