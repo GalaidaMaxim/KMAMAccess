@@ -23,3 +23,7 @@ export const useCource = () => {
 export const useSorting = () => {
   return useSelector((state) => state.sorting.value);
 };
+
+export const useLevel = () => {
+  return useSelector((state) => state.level.value);
+};

@@ -119,7 +119,22 @@ export const sorting = createSlice({
   },
 });
 
+export const level = createSlice({
+  name: "level",
+  initialState: {
+    value: "All",
+  },
+  reducers: {
+    setLevel: (state, { payload }) => {
+      console.log(payload);
+
+      state.value = payload;
+    },
+  },
+});
+
 export const { setToken, clearUser } = userSlice.actions;
 export const { enableLoading, disableLoading } = loadingSlice.actions;
 export const { setCourse } = courseSlice.actions;
 export const { setSortingField, changeSortingDirection } = sorting.actions;
+export const { setLevel } = level.actions;

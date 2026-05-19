@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userSlice, loadingSlice, courseSlice, sorting } from "./slises";
+import { userSlice, loadingSlice, courseSlice, sorting, level } from "./slises";
 
 export const store = configureStore({
   reducer: {
@@ -7,5 +7,6 @@ export const store = configureStore({
     loading: loadingSlice.reducer,
     course: courseSlice.reducer,
     sorting: sorting.reducer,
+    level: level.reducer,
   },
 });
