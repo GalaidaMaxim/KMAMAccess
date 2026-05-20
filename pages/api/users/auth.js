@@ -3,6 +3,8 @@ import { connectToDatabase } from "@/mongoose/mongooseConnect";
 
 export default async function AuthHandler(req, res) {
   try {
+    console.log(req.body);
+
     await connectToDatabase();
     const { login, password } = req.body;
     const { user } = await loginUser(login, password);

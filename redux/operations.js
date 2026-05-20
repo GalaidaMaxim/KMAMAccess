@@ -15,7 +15,7 @@ export const signInOperation = createAsyncThunk(
       };
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const logoutOperation = createAsyncThunk(
@@ -31,7 +31,7 @@ export const logoutOperation = createAsyncThunk(
       };
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const refreshInfo = createAsyncThunk(
@@ -47,7 +47,7 @@ export const refreshInfo = createAsyncThunk(
       };
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const getAppStateOperation = createAsyncThunk(
@@ -63,5 +63,5 @@ export const getAppStateOperation = createAsyncThunk(
       };
       return rejectWithValue(error);
     }
-  }
+  },
 );
